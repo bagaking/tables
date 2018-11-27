@@ -1,13 +1,13 @@
+# -*- coding: utf-8 -*
+
 import xlrd
 import os
-from collections import OrderedDict
 import json
 import codecs
 import sys
 
-
-INPUT_PATH = './excel';
-OUTPUT_PATH = './cfg';
+INPUT_PATH = './_source';
+OUTPUT_PATH = './_dist';
 OVERRIDE = True;
 
 # file name log
@@ -77,6 +77,11 @@ class dealer(object):
     def dump_json(self, indent = 4):
         return json.dumps(self.convert_list, indent = indent)
         
+# procedure :
+# read file
+# create dealer
+# dump dealer and export
+
 dirs = os.listdir(INPUT_PATH)
 for filename in dirs:
     filename = excel_filename_filter(filename)
