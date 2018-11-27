@@ -59,7 +59,8 @@ class dealer(object):
                 'int32': int,
                 'int64': int,
                 'long': int,
-            }.get(type_row[ind], lambda x: x))
+                'bool': lambda x: x == True or x == '1' or (isinstance(x, str) and (x.lower() == 'true' or x.lower() == 'y')),  # 1==True
+            }.get(type_row[ind].lower(), lambda x: x))
         self.clear()
 
     def clear(self):
