@@ -49,9 +49,16 @@ class dealer(object):
         self.type_convertor = [] 
         for ind in range(0, len(type_row)):
             self.type_convertor.append({
+                'double': float,
+                'float': float,
                 'string': str,
                 'str': str,
                 'int': int,
+                'int8': int,
+                'int16': int,
+                'int32': int,
+                'int64': int,
+                'long': int,
             }.get(type_row[ind], lambda x: x))
         self.clear()
 
