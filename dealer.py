@@ -40,7 +40,7 @@ class djson(object):
         elif isinstance(entry, list):
             entry.append(val)
         else:
-            print('├    convert type error %s ==> %s' % (row[ind], val))
+            print('├    Err: convert type error %s ==> %s' % (row[ind], val))
 
     def read_line(self, row):
         if row[0] == "":
@@ -66,8 +66,10 @@ class djson(object):
             else:
                 self.convert(_entry, row, col)
         if len(_entry_stack) > 0:
-            print("├    parse row(%d) error ==> object parser not close" % row)
+            print("├    Err: parse row(%d) error ==> object parser not close" % row)
         else:
+            if _id in self.entries:
+                print("├    Warn: id %s is already exist" % _id)
             self.entries[_id] = _entry
 
     def print_entries(self):
