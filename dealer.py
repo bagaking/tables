@@ -56,7 +56,7 @@ class djson(object):
         if row[0] == "":
             return
         _id = self.type_convertor[0](row[0])
-        _entry = {}
+        _entry = True and {} or []
         _entry_stack = []
         for col in range(1, len(row)):
             col_title = self.title_row[col]
