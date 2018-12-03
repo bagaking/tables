@@ -40,7 +40,7 @@ class djson(object):
         elif isinstance(entry, list):
             entry.append(val)
         else:
-            print('├    Err: convert type error %s ==> %s' % (row[ind], val))
+            print('��    Err: convert type error %s ==> %s' % (row[ind], val))
 
     def read_line(self, row):
         if row[0] == "":
@@ -53,23 +53,31 @@ class djson(object):
             col_type = self.type_row[col]
             if col_type == '{':
                 _entry_stack.append(_entry)
-                _entry[col_title] = {}
-                _entry = _entry[col_title]
+                new = {}
+                if isinstance(_entry, dict):
+                    _entry[col_title] = new
+                elif isinstance(_entry, list):
+                    _entry.append(new)
+                _entry = new
             elif col_type == '}':
                 _entry = _entry_stack.pop()
             elif col_type == '[':
                 _entry_stack.append(_entry)
-                _entry[col_title] = []
-                _entry = _entry[col_title]
+                new = []
+                if isinstance(_entry, dict):
+                    _entry[col_title] = new
+                elif isinstance(_entry, list):
+                    _entry.append(new)
+                _entry = new
             elif col_type == ']':
                 _entry = _entry_stack.pop()
             else:
                 self.convert(_entry, row, col)
         if len(_entry_stack) > 0:
-            print("├    Err: parse row(%d) error ==> object parser not close" % row)
+            print("��    Err: parse row(%d) error ==> object parser not close" % row)
         else:
             if _id in self.entries:
-                print("├    Warn: id %s is already exist" % _id)
+                print("��    Warn: id %s is already exist" % _id)
             self.entries[_id] = _entry
 
     def print_entries(self):
