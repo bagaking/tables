@@ -14,14 +14,21 @@ class djson(object):
             switch = {
                 'double': float,
                 'float': float,
+                'single': float,
                 'string': str,
                 'str': str,
-                'int': convertor.toint,
-                'int8':  convertor.toint,
-                'int16':  convertor.toint,
-                'int32':  convertor.toint,
-                'int64':  convertor.toint,
-                'long':  convertor.toint,
+                'int': convertor.to_int,
+                'int8': convertor.to_int,
+                'int16': convertor.to_int,
+                'int32': convertor.to_int,
+                'int64': convertor.to_int,
+                'long': convertor.to_int,
+                'uint': convertor.to_uint,
+                'uint8': convertor.to_uint,
+                'uint16': convertor.to_uint,
+                'uint32': convertor.to_uint,
+                'uint64': convertor.to_uint,
+                'ulong': convertor.to_uint,
                 'bool': lambda x: x == True or x == '1' or (isinstance(x, str) and (x.lower() == 'true' or x.lower() == 'y')),# 1==True
             }
             return switch.get(cname.strip().lower(), lambda x: x)
