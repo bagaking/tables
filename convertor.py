@@ -14,7 +14,9 @@ def to_int(val):
     elif val_type is int:
         return int(val)
     elif val_type is float:
-        print("convertor to_int warning: the variable type is float.")
+        num = int(val)
+        if num != val:
+            print("convertor to_int warning: the variable %s type is float." % val)
         return int(val)
     else:
         print("convertor to_int warning: the variable type is not any of int, float, string, please check.")
