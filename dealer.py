@@ -12,11 +12,12 @@ class djson(object):
 
         def val_convertor(cname):
             switch = {
-                'double': float,
-                'float': float,
-                'single': float,
                 'string': str,
                 'str': str,
+                'double': float,
+                'single': float,
+                'float': float,
+                'ufloat': convertor.to_ufloat,
                 'int': convertor.to_int,
                 'int8': convertor.to_int,
                 'int16': convertor.to_int,
@@ -47,7 +48,9 @@ class djson(object):
         elif isinstance(entry, list):
             entry.append(val)
         else:
-            print('��    Err: convert type error %s ==> %s' % (row[ind], val))
+            error_str = '├    Err: convert type error %s ==> %s' % (row[ind], val)
+            print(error_str)
+            raise Exception(error_str)
 
     def read_line(self, row):
         if row[0] == "":
@@ -81,10 +84,12 @@ class djson(object):
             else:
                 self.convert(_entry, row, col)
         if len(_entry_stack) > 0:
-            print("��    Err: parse row(%d) error ==> object parser not close" % row)
+            error_str = "├    Err: parse row(%d) error ==> object parser not close" % row
+            print(error_str)
+            raise Exception(error_str)
         else:
             if _id in self.entries:
-                print("��    Warn: id %s is already exist" % _id)
+                print("├    Warn: id %s is already exist" % _id)
             self.entries[_id] = _entry
 
     def print_entries(self):

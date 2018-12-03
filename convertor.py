@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*
+import types
 
 def to_int(val):
-    if isinstance(val, str):
+    val_type = type(val)
+    if val_type is str:
         val = val.strip().lower().replace(' ', '')
         if val.startswith("0x") or val.startswith("-0x"):
             return int(val,16)
@@ -9,11 +11,23 @@ def to_int(val):
             return int(val,8)
         else:
             return int(val)
+    elif val_type is int:
+        return int(val)
+    elif val_type is float:
+        print("convertor to_int warning: the variable type is float.")
+        return int(val)
     else:
+        print("convertor to_int warning: the variable type is not any of int, float, string, please check.")
         return int(val)
 
 def to_uint(val):
     num = to_int(val)
     if num < 0:
-        raise Exception("convertor error: val cannot be negative.", num)
+        raise Exception("convertor to_uint error: val cannot be negative.", num)
+    return num
+
+def to_ufloat(val):
+    num = float(val)
+    if num < 0:
+        raise Exception("convertor to_ufloat error: val cannot be negative.", num)
     return num
